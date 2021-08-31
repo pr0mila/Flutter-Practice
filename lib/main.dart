@@ -30,14 +30,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -46,40 +38,69 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _value = 'Nothing yet';
-
-  void _onpressed() {
-    setState(() {
-      _value = new DateTime.now().toString();
-    });
+  //String _value = 'Nothing yet';
+  int counter = 0;
+  List<Widget> _list = [];
+  void initState() {
+    for (int i = 0; i < 5; i++) {
+      Widget child = _newitem(i);
+      _list.add(child);
+    }
   }
+
+  void _onPressed() {
+    Widget child = _newitem(counter);
+    setState(() => _list.add(child));
+  }
+
+  Widget _newitem(int i) {
+    Key key = new Key('_item ${i}');
+    Container child = new Container(
+      key: key,
+      padding: new EdgeInsets.all(10.0),
+      child: new Chip(
+        label: new Text('${i} name here'),
+        deleteIconColor: Colors.redAccent,
+        deleteButtonTooltipMessage: 'Delete',
+        onDeleted: () => _removeitem(key),
+        avatar: CircleAvatar(
+            backgroundColor: Colors.greenAccent, child: new Text(i.toString())),
+      ),
+    );
+    counter++;
+    return child;
+  }
+
+  void _removeitem(Key key) {
+    for (int i = 0; i < _list.length; i++) {
+      Widget child = _list.removeAt(i);
+      print('Removing ${key.toString()} ');
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            new Text(_value),
-            new IconButton(
-              icon: new Icon(Icons.timer),
-              onPressed: _onpressed,
-              tooltip: 'Click me',
-
-            )],
-
+        appBar: AppBar(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text(widget.title),
         ),
-      ),
-      // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        floatingActionButton: new FloatingActionButton(
+          onPressed: _onPressed,
+          child: new Icon(Icons.add),
+        ),
+        body: new Container(
+            padding: new EdgeInsets.all(32.0),
+            child: new Center(
+              child: new Column(
+                children: _list,
+
+              ),
+            ))
+        // This trailing comma makes auto-formatting nicer for build methods.
+        );
   }
 }
