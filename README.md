@@ -1,16 +1,11 @@
-# flutterintermediate
+# Flutter Intermediate Practice
 
-A new Flutter project.
+# -Chips and Keys
 
-## Getting Started
+![Screenshot from 2021-08-31 15-40-52](https://user-images.githubusercontent.com/39271244/131511636-ca63216a-b6f1-4f57-9737-518b6dcbb363.png)
 
-This project is a starting point for a Flutter application.
+# -Sliders and indicators
 
-A few resources to get you started if this is your first Flutter project:
+![Screenshot from 2021-08-31 19-15-50](https://user-images.githubusercontent.com/39271244/131511808-bd31e8cd-2a30-4e25-9767-524e13f22c3c.png)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
