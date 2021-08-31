@@ -39,44 +39,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   //String _value = 'Nothing yet';
-  int counter = 0;
-  List<Widget> _list = [];
-  void initState() {
-    for (int i = 0; i < 5; i++) {
-      Widget child = _newitem(i);
-      _list.add(child);
-    }
-  }
-
-  void _onPressed() {
-    Widget child = _newitem(counter);
-    setState(() => _list.add(child));
-  }
-
-  Widget _newitem(int i) {
-    Key key = new Key('_item ${i}');
-    Container child = new Container(
-      key: key,
-      padding: new EdgeInsets.all(10.0),
-      child: new Chip(
-        label: new Text('${i} name here'),
-        deleteIconColor: Colors.redAccent,
-        deleteButtonTooltipMessage: 'Delete',
-        onDeleted: () => _removeitem(key),
-        avatar: CircleAvatar(
-            backgroundColor: Colors.greenAccent, child: new Text(i.toString())),
-      ),
-    );
-    counter++;
-    return child;
-  }
-
-  void _removeitem(Key key) {
-    for (int i = 0; i < _list.length; i++) {
-      Widget child = _list.removeAt(i);
-      print('Removing ${key.toString()} ');
-    }
-  }
+  double _value = 0.0;
+  void _onChanged(double value) => setState(()=> _value=value);
 
 
 
@@ -88,15 +52,27 @@ class _MyHomePageState extends State<MyHomePage> {
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
         ),
-        floatingActionButton: new FloatingActionButton(
-          onPressed: _onPressed,
-          child: new Icon(Icons.add),
-        ),
         body: new Container(
             padding: new EdgeInsets.all(32.0),
             child: new Center(
               child: new Column(
-                children: _list,
+                children:<Widget>[
+                  new Slider(value: _value, onChanged: _onChanged),
+                  new Container(
+                    padding: new EdgeInsets.all(32.0),
+                    child : new LinearProgressIndicator(
+                      value: _value,
+                      valueColor: new AlwaysStoppedAnimation<Color>(Colors.green),
+                    ),
+                  ),
+                  new Container(
+                    padding: new EdgeInsets.all(32.0),
+                    child : new CircularProgressIndicator(
+                      value: _value,
+                      valueColor: new AlwaysStoppedAnimation<Color>(Colors.lightBlue),
+                    ),
+                  )
+                ] ,
 
               ),
             ))
