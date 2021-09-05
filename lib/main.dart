@@ -37,11 +37,36 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  //String _value = 'Nothing yet';
-  double _value = 0.0;
-  void _onChanged(double value) => setState(()=> _value=value);
+enum Animals {cat, dog, fish}
 
+
+class _MyHomePageState extends State<MyHomePage> {
+  Animals _selected = Animals.cat;
+  String _value ="Select an option";
+  List<PopupMenuEntry<Animals>> _items = <PopupMenuEntry<Animals>>[];
+
+  @override
+  void initState() {
+    for(Animals animal in Animals.values) {
+      _items.add(new PopupMenuItem(
+        child: new Text(_getDisplay(animal),),
+        value: animal,
+      ));
+    }
+  }
+
+  void _onSelected(Animals animal) {
+    setState((){
+      _selected = animal;
+      _value = 'You Selected ${_getDisplay(animal)}';
+    });
+  }
+
+  String _getDisplay(Animals animal) {
+    int index = animal.toString().indexOf('.');
+    index++;
+    return animal.toString().substring(index);
+  }
 
 
   @override
@@ -55,24 +80,22 @@ class _MyHomePageState extends State<MyHomePage> {
         body: new Container(
             padding: new EdgeInsets.all(32.0),
             child: new Center(
-              child: new Column(
-                children:<Widget>[
-                  new Slider(value: _value, onChanged: _onChanged),
+              child: new Row(
+                children: <Widget>[
                   new Container(
-                    padding: new EdgeInsets.all(32.0),
-                    child : new LinearProgressIndicator(
-                      value: _value,
-                      valueColor: new AlwaysStoppedAnimation<Color>(Colors.green),
-                    ),
+                    padding: new EdgeInsets.all(5.0),
+                    child: new Text(_value),
                   ),
-                  new Container(
-                    padding: new EdgeInsets.all(32.0),
-                    child : new CircularProgressIndicator(
-                      value: _value,
-                      valueColor: new AlwaysStoppedAnimation<Color>(Colors.lightBlue),
-                    ),
+                  new PopupMenuButton<Animals>(
+                      child:  new Icon(Icons.input),
+                      initialValue: Animals.cat,
+                      onSelected: _onSelected,
+                      itemBuilder: (BuildContext context) {
+                        return _items;
+                      }
                   )
-                ] ,
+                ],
+
 
               ),
             ))
