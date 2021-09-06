@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(MyApp());
@@ -41,6 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.teal,
         body: SafeArea(
             child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             CircleAvatar(
               radius: 50.0,
@@ -49,21 +51,57 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               'Cindrella',
               style: TextStyle(
-                fontFamily: 'Pacifico',
-                fontSize: 40.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white
-              ) ,
+                  fontFamily: 'Pacifico',
+                  fontSize: 40.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
             Text(
               'FLUTTER DEVELOPER',
               style: TextStyle(
-                  fontFamily: 'Source Sans Pro',
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.teal.shade100,
-              ) ,
-            )
+                fontFamily: 'Source Sans Pro',
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 2.0,
+                color: Colors.teal.shade100,
+              ),
+            ),
+            SizedBox(
+              width: 150.0,
+              child: Divider(
+                color: Colors.teal.shade100,
+              ),
+            ),
+            Card(
+                color: Colors.white,
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                child: ListTile(
+                    leading: Icon(
+                      Icons.phone,
+                      color: Colors.teal,
+                    ),
+                    title: Text(
+                      '+4456797653',
+                      style: TextStyle(
+                        fontFamily: 'Source Sans Pro',
+                        fontSize: 20.0,
+                      ),
+                    ))),
+            Card(
+                color: Colors.white,
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                child: ListTile(
+                    leading: Icon(
+                      Icons.email,
+                      color: Colors.teal,
+                    ),
+                    title: Text(
+                      'demo@intro.info',
+                      style: TextStyle(
+                        fontFamily: 'Source Sans Pro',
+                        fontSize: 20.0,
+                      ),
+                    ))),
           ],
         ))
         // This trailing comma makes auto-formatting nicer for build methods.
