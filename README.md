@@ -14,5 +14,10 @@
 ![Screenshot from 2021-09-05 15-31-07](https://user-images.githubusercontent.com/39271244/132122238-28db3635-90ac-49b1-b9d9-e766ebb19e07.png)
 ![Screenshot from 2021-09-05 15-31-24](https://user-images.githubusercontent.com/39271244/132122241-4dacc90c-efec-4713-a353-ddb3da6d0a0e.png)
 
+## <a href= "https://github.com/pr0mila/flutterintermediate/tree/ff7a293a06a35a809bc5ddbb428a4fe8bff82a39">Card View</a>
+
+![Screenshot from 2021-09-06 16-43-16](https://user-images.githubusercontent.com/39271244/132206234-2c3ce21b-ae66-4a76-a47c-9e2d03a47b03.png)
+
+
 
 
