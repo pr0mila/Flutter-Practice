@@ -31,6 +31,21 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+List<Icon> scoreKeeper = [
+  Icon(
+    Icons.close,
+    color: Colors.red,
+  ),
+  Icon(
+    Icons.close,
+    color: Colors.red,
+  ),
+  Icon(
+    Icons.check,
+    color: Colors.green,
+  ),
+];
+
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
@@ -63,7 +78,16 @@ class _MyHomePageState extends State<MyHomePage> {
               'True',
               style: TextStyle(color: Colors.white, fontSize: 20.0),
             ),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                scoreKeeper.add(
+                  Icon(
+                    Icons.check,
+                    color: Colors.green,
+                  ),
+                );
+              });
+            },
           ),
         )),
         Expanded(
@@ -76,33 +100,20 @@ class _MyHomePageState extends State<MyHomePage> {
               'False',
               style: TextStyle(color: Colors.white, fontSize: 20.0),
             ),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                scoreKeeper.add(
+                  Icon(
+                    Icons.close,
+                    color: Colors.red,
+                  ),
+                );
+              });
+            },
           ),
         )),
         Row(
-          children:<Widget> [
-            Icon(
-                Icons.check,
-                color: Colors.green,
-            ),
-            Icon(
-              Icons.check,
-              color: Colors.green,
-            ),
-            Icon(
-              Icons.close,
-              color: Colors.red,
-            ),
-            Icon(
-              Icons.close,
-              color: Colors.red,
-            ),
-            Icon(
-              Icons.check,
-              color: Colors.green,
-            )
-
-          ],
+          children: scoreKeeper,
         )
       ],
     );
