@@ -18,6 +18,6 @@
 
 ![Screenshot from 2021-09-06 16-43-16](https://user-images.githubusercontent.com/39271244/132206234-2c3ce21b-ae66-4a76-a47c-9e2d03a47b03.png)
 
+## <a href= "https://github.com/pr0mila/Flutter-Practice/tree/0e142f91f4cfc23f8c9a3406b9849e5dad76ada1">Dice interface changing</a>
 
-
-
+![Screenshot from 2021-09-28 17-57-22](https://user-images.githubusercontent.com/39271244/135083624-7b70fe37-764f-4d85-b636-e6db24df77fc.png)
