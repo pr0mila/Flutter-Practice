@@ -14,57 +14,73 @@ class XylophoneApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.black,
         body: SafeArea(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              FlatButton(
-                color: Colors.red,
-                onPressed: () {
-                  playSound(1);
-                },
-                child: Text('1'),
+              Expanded(
+                child: FlatButton(
+                  color: Colors.red,
+                  onPressed: () {
+                    playSound(1);
+                  },
+                  child: Text('1'),
+                ),
               ),
-              FlatButton(
+            Expanded(
+              child:FlatButton(
                 color: Colors.orange,
                 onPressed: () {
                   playSound(2);
                 },
                 child: Text('2'),
               ),
-              FlatButton(
-                color: Colors.yellow,
-                onPressed: () {
-                  playSound(3);
-                },
-                child: Text('3'),
+            ),
+              Expanded(
+                child: FlatButton(
+                  color: Colors.yellow,
+                  onPressed: () {
+                    playSound(3);
+                  },
+                  child: Text('3'),
+                ),
               ),
-              FlatButton(
+          Expanded(
+            child:FlatButton(
                 color: Colors.green,
                 onPressed: () {
                   playSound(4);
                 },
                 child: Text('4'),
               ),
-              FlatButton(
-                color: Colors.teal,
-                onPressed: () {
-                  playSound(5);
-                },
-                child: Text('6'),
+          ),
+              Expanded(
+                child: FlatButton(
+                  color: Colors.teal,
+                  onPressed: () {
+                    playSound(5);
+                  },
+                  child: Text('5'),
+                ),
               ),
-              FlatButton(
+            Expanded(
+               child:FlatButton(
                 color: Colors.blue,
                 onPressed: () {
                   playSound(6);
                 },
                 child: Text('6'),
               ),
-              FlatButton(
-                color: Colors.purple,
-                onPressed: () {
-                  playSound(7);
-                },
-                child: Text('7'),
+            ),
+              Expanded(
+                child: FlatButton(
+                  color: Colors.purple,
+                  onPressed: () {
+                    playSound(7);
+                  },
+                  child: Text('7'),
+                ),
               ),
             ],
           ),
