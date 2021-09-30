@@ -4,12 +4,23 @@ import 'package:audioplayers/audioplayers.dart';
 void main() => runApp(XylophoneApp());
 
 class XylophoneApp extends StatelessWidget {
-
-  void playSound(int soundNumber)
-  {
+  void playSound(int soundNumber) {
     final player = AudioCache();
     player.play('note$soundNumber.wav');
   }
+
+  Expanded buidKey(Color color, int soundNumber, String text) {
+    return Expanded(
+      child: FlatButton(
+        color: color,
+        onPressed: () {
+          playSound(soundNumber);
+        },
+        child: Text(text),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,69 +30,13 @@ class XylophoneApp extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(
-                child: FlatButton(
-                  color: Colors.red,
-                  onPressed: () {
-                    playSound(1);
-                  },
-                  child: Text('1'),
-                ),
-              ),
-            Expanded(
-              child:FlatButton(
-                color: Colors.orange,
-                onPressed: () {
-                  playSound(2);
-                },
-                child: Text('2'),
-              ),
-            ),
-              Expanded(
-                child: FlatButton(
-                  color: Colors.yellow,
-                  onPressed: () {
-                    playSound(3);
-                  },
-                  child: Text('3'),
-                ),
-              ),
-          Expanded(
-            child:FlatButton(
-                color: Colors.green,
-                onPressed: () {
-                  playSound(4);
-                },
-                child: Text('4'),
-              ),
-          ),
-              Expanded(
-                child: FlatButton(
-                  color: Colors.teal,
-                  onPressed: () {
-                    playSound(5);
-                  },
-                  child: Text('5'),
-                ),
-              ),
-            Expanded(
-               child:FlatButton(
-                color: Colors.blue,
-                onPressed: () {
-                  playSound(6);
-                },
-                child: Text('6'),
-              ),
-            ),
-              Expanded(
-                child: FlatButton(
-                  color: Colors.purple,
-                  onPressed: () {
-                    playSound(7);
-                  },
-                  child: Text('7'),
-                ),
-              ),
+              buidKey(Colors.red, 1, 'Music 1'),
+              buidKey(Colors.orange, 2, 'Music 2'),
+              buidKey(Colors.yellow, 3, 'Music 3'),
+              buidKey(Colors.green, 4, 'Music 4'),
+              buidKey(Colors.teal, 5, 'Music 5'),
+              buidKey(Colors.blue, 6, 'Music 6'),
+              buidKey(Colors.purple, 7, 'Music 7'),
             ],
           ),
         ),
