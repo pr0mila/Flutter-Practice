@@ -31,20 +31,19 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-List<Icon> scoreKeeper = [
-  Icon(
-    Icons.close,
-    color: Colors.red,
-  ),
-  Icon(
-    Icons.close,
-    color: Colors.red,
-  ),
-  Icon(
-    Icons.check,
-    color: Colors.green,
-  ),
+List<Icon> scoreKeeper = [];
+List<String> questions = [
+  'Variables represent the type of data',
+  'Boolean returns ture or false',
+  'Dart supports null safety'
 ];
+List<bool> answers = [
+  false,
+  true,
+  true,
+];
+
+int questionNumber = 0;
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
@@ -59,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is question',
+                questions[questionNumber],
                 style: TextStyle(
                   fontSize: 25.0,
                   color: Colors.white,
@@ -79,7 +78,14 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(color: Colors.white, fontSize: 20.0),
             ),
             onPressed: () {
+              bool correctAnswer = answers[questionNumber++];
+              if (correctAnswer == true)
+                print("this is right");
+              else
+                print("this is wrong");
               setState(() {
+                questionNumber++;
+
                 scoreKeeper.add(
                   Icon(
                     Icons.check,
@@ -101,7 +107,13 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(color: Colors.white, fontSize: 20.0),
             ),
             onPressed: () {
+              bool correctAnswer = answers[questionNumber++];
+              if (correctAnswer == false)
+                print("this is right");
+              else
+                print("this is wrong");
               setState(() {
+                questionNumber++;
                 scoreKeeper.add(
                   Icon(
                     Icons.close,
