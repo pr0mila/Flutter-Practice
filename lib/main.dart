@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'questions.dart';
+import 'quix_brain.dart';
+
+QuizBrain quizBrain = QuizBrain();
 
 void main() {
   runApp(MyApp());
@@ -35,11 +37,7 @@ class MyHomePage extends StatefulWidget {
 List<Icon> scoreKeeper = [];
 
 int questionNumber = 0;
-List <Questions> questionbank = [
-  Questions(q : 'Variables represent the type of data', a : false),
-  Questions(q : 'Boolean returns ture or false', a : true),
-  Questions(q : 'Dart supports null safety', a : true)
-] ;
+
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
@@ -54,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questionbank[questionNumber].questionText,
+                quizBrain.questionBank[questionNumber].questionText,
                 style: TextStyle(
                   fontSize: 25.0,
                   color: Colors.white,
@@ -74,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(color: Colors.white, fontSize: 20.0),
             ),
             onPressed: () {
-              bool correctAnswer = questionbank[questionNumber].questionAnswer;
+              bool correctAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
               if (correctAnswer == true)
                 print("this is right");
               else
@@ -103,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(color: Colors.white, fontSize: 20.0),
             ),
             onPressed: () {
-              bool correctAnswer = questionbank[questionNumber].questionAnswer;
+              bool correctAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
               if (correctAnswer == false)
                 print("this is right");
               else
