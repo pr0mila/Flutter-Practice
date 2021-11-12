@@ -34,12 +34,33 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-List<Icon> scoreKeeper = [];
-
-int questionNumber = 0;
-
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  List<Icon> scoreKeeper = [];
+  void checkAnswer(bool userPickedAnswer)
+  {
+    bool correctAnswer = quizBrain.getAnswer();
+    if (correctAnswer == true)
+      scoreKeeper.add(
+        Icon(
+          Icons.check,
+          color: Colors.green,
+        ),
+      );
+    else
+      scoreKeeper.add(
+        Icon(
+          Icons.close,
+          color: Colors.red,
+        ),
+      );
+    setState(() {
+      quizBrain.nextQuestion();
+
+
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -52,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.getQuestion(questionNumber),
+                quizBrain.getQuestion(),
                 style: TextStyle(
                   fontSize: 25.0,
                   color: Colors.white,
@@ -72,21 +93,8 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(color: Colors.white, fontSize: 20.0),
             ),
             onPressed: () {
-              bool correctAnswer = quizBrain.getAnswer(questionNumber);
-              if (correctAnswer == true)
-                print("this is right");
-              else
-                print("this is wrong");
-              setState(() {
-                questionNumber++;
+              checkAnswer(true);
 
-                scoreKeeper.add(
-                  Icon(
-                    Icons.check,
-                    color: Colors.green,
-                  ),
-                );
-              });
             },
           ),
         )),
@@ -101,20 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(color: Colors.white, fontSize: 20.0),
             ),
             onPressed: () {
-              bool correctAnswer = quizBrain.getAnswer(questionNumber);
-              if (correctAnswer == false)
-                print("this is right");
-              else
-                print("this is wrong");
-              setState(() {
-                questionNumber++;
-                scoreKeeper.add(
-                  Icon(
-                    Icons.close,
-                    color: Colors.red,
-                  ),
-                );
-              });
+              checkAnswer(false);
             },
           ),
         )),
