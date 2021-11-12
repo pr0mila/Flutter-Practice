@@ -40,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Icon> scoreKeeper = [];
   void checkAnswer(bool userPickedAnswer)
   {
+
     bool correctAnswer = quizBrain.getAnswer();
     if (correctAnswer == true)
       scoreKeeper.add(
@@ -57,7 +58,6 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     setState(() {
       quizBrain.nextQuestion();
-
 
     });
   }
@@ -113,9 +113,11 @@ class _MyHomePageState extends State<MyHomePage> {
             },
           ),
         )),
-        Row(
+        Expanded(
+          flex: 1,
+      child:Row(
           children: scoreKeeper,
-        )
+        ))
       ],
     );
   }
