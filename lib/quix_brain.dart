@@ -1,7 +1,10 @@
 import 'questions.dart';
+import 'package:flutter/widgets.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class QuizBrain{
   int _questionNumber = 0;
+  List<Icon> scoreKeeper = [];
   void quizNum(int questionNumber)
   {
     _questionNumber = questionNumber;
@@ -28,6 +31,8 @@ class QuizBrain{
     Question(q:'Google was originally called \"Backrub\".', a:true)
   ] ;
 
+
+
   void nextQuestion()
   {
     if(_questionNumber<_questionBank.length-1)
@@ -36,8 +41,11 @@ class QuizBrain{
       }
     else{
       _questionNumber = 0;
+      scoreKeeper.clear();
+
     }
   }
+
 
   String getQuestion()
   {

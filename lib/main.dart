@@ -37,20 +37,20 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  List<Icon> scoreKeeper = [];
+
   void checkAnswer(bool userPickedAnswer)
   {
 
     bool correctAnswer = quizBrain.getAnswer();
     if (correctAnswer == true)
-      scoreKeeper.add(
+        quizBrain.scoreKeeper.add(
         Icon(
           Icons.check,
           color: Colors.green,
         ),
       );
     else
-      scoreKeeper.add(
+      quizBrain.scoreKeeper.add(
         Icon(
           Icons.close,
           color: Colors.red,
@@ -58,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     setState(() {
       quizBrain.nextQuestion();
+      print(quizBrain.nextQuestion);
 
     });
   }
@@ -116,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
         Expanded(
           flex: 1,
       child:Row(
-          children: scoreKeeper,
+          children: quizBrain.scoreKeeper,
         ))
       ],
     );
