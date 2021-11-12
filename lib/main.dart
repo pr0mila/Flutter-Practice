@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questionBank[questionNumber].questionText,
+                quizBrain.getQuestion(questionNumber),
                 style: TextStyle(
                   fontSize: 25.0,
                   color: Colors.white,
@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(color: Colors.white, fontSize: 20.0),
             ),
             onPressed: () {
-              bool correctAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
+              bool correctAnswer = quizBrain.getAnswer(questionNumber);
               if (correctAnswer == true)
                 print("this is right");
               else
@@ -101,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(color: Colors.white, fontSize: 20.0),
             ),
             onPressed: () {
-              bool correctAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
+              bool correctAnswer = quizBrain.getAnswer(questionNumber);
               if (correctAnswer == false)
                 print("this is right");
               else
