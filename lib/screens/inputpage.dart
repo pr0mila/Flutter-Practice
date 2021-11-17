@@ -1,13 +1,12 @@
-import 'reusable_card.dart';
-import 'icon_content.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutterintermediate/screens/results_page.dart';
+
+import '../components/reusable_card.dart';
+import '../components/icon_content.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-const bottomContainerHeight = 80.0;
-const backgroundCardColor = Color(0xFF0A0E21);
-const activatedCardColor = Color(0xFF1D1E33);
-const inactivatedCardColor = Color(0xFF111328);
-const bottomContainerColor = Color(0xFFEB1555);
+import '../constants.dart';
+import '../components/bottom_button.dart';
 
 enum Gender { male, female }
 
@@ -20,21 +19,6 @@ class _InputPageState extends State<InputPage> {
   Color maleCardColor = inactivatedCardColor;
   Color femaleCardColor = inactivatedCardColor;
   Gender? gender;
-
-  /*void updatedColor(Gender gender) {
-    if (gender == Gender.male) {
-      maleCardColor = activatedCardColor;
-      femaleCardColor = inactivatedCardColor;
-    } else {
-      maleCardColor = inactivatedCardColor;
-    }
-    if (gender == Gender.female) {
-      femaleCardColor = activatedCardColor;
-      maleCardColor = inactivatedCardColor;
-    } else {
-      femaleCardColor = inactivatedCardColor;
-    }
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -92,10 +76,12 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            color: bottomContainerColor,
-            width: double.infinity,
-            height: bottomContainerHeight,
+          BottomButton(
+            buttonText: 'CALCULATE',
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ResultPage()));
+            },
           )
         ],
       ),
