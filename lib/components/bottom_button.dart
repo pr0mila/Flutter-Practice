@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutterintermediate/screens/results_page.dart';
 import '../constants.dart';
 
+
 class BottomButton extends StatelessWidget {
 
 
-  BottomButton({required this.buttonText});
+  BottomButton({required this.buttonText,required this.onTap});
   final String buttonText;
- // final Function onTap;
+  final VoidCallback onTap;
 
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>ResultPage()));
-      },
+      onTap: onTap
+      ,
       child: Container(
         child: Center(
           child: Text(
@@ -31,3 +31,4 @@ class BottomButton extends StatelessWidget {
     );
   }
 }
+

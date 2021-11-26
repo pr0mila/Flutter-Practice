@@ -1,4 +1,5 @@
 import 'package:flutter/painting.dart';
+import 'package:flutterintermediate/components/round_icon_button.dart';
 import 'package:flutterintermediate/screens/results_page.dart';
 
 import '../components/reusable_card.dart';
@@ -19,6 +20,9 @@ class _InputPageState extends State<InputPage> {
   Color maleCardColor = inactivatedCardColor;
   Color femaleCardColor = inactivatedCardColor;
   Gender? gender;
+  int height = 180;
+  int weight = 0;
+  int age = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +30,9 @@ class _InputPageState extends State<InputPage> {
       appBar: AppBar(
         backgroundColor: backgroundCardColor,
         title: Text('BMI CALCULATOR'),
+        leading: Icon(
+          FontAwesomeIcons.stream,
+        ),
       ),
       body: Column(
         children: [
@@ -62,27 +69,141 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
           Expanded(
-            child: ReusableCard(colour: activatedCardColor),
+            child: ReusableCard(
+              colour: activatedCardColor,
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'HEIGHT',
+                    style: labelText,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: <Widget>[
+                      Text(
+                        height.toString(),
+                        style: numberText,
+                      ),
+                      Text(
+                        'cm',
+                        style: labelText,
+                      ),
+                    ],
+                  ),
+                  SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                        activeTrackColor: Colors.white,
+                        thumbColor: Color(0xFFEB1555),
+                        overlayColor: Color(0x29EB1555),
+                        inactiveTrackColor: Color(0xFF8D8E98),
+                        thumbShape: RoundSliderThumbShape(
+                          enabledThumbRadius: 15.0,
+                        ),
+                        overlayShape:
+                            RoundSliderOverlayShape(overlayRadius: 30.0)),
+                    child: Slider(
+                        value: height.toDouble(),
+                        min: 120.0,
+                        max: 220.0,
+                        onChanged: (double newValue) {
+                          setState(() {
+                            height = newValue.round();
+                          });
+                        }),
+                  )
+                ],
+              ),
+            ),
           ),
           Expanded(
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: ReusableCard(colour: activatedCardColor),
+                  child: ReusableCard(
+                    colour: activatedCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'WEIGHT',
+                          style: labelText,
+                        ),
+                        Text(
+                          weight.toString(),
+                          style: numberText,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                                icon: FontAwesomeIcons.minus,
+                                onPressed: () {
+                                  setState(() {
+                                    weight--;
+                                  });
+                                }),
+                            SizedBox(width: 10.0),
+                            RoundIconButton(
+                                icon: FontAwesomeIcons.plus,
+                                onPressed: () {
+                                  setState(() {
+                                    weight++;
+                                  });
+                                }),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
                 ),
                 Expanded(
-                  child: ReusableCard(colour: activatedCardColor),
+                  child: ReusableCard(
+                    colour: activatedCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'AGE',
+                          style: labelText,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: numberText,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                                icon: FontAwesomeIcons.minus,
+                                onPressed: () {
+                                  setState(() {
+                                    age--;
+                                  });
+                                }),
+                            SizedBox(width: 10.0),
+                            RoundIconButton(
+                                icon: FontAwesomeIcons.plus,
+                                onPressed: () {
+                                  setState(() {
+                                    age++;
+                                  });
+                                }),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
           BottomButton(
-            buttonText: 'CALCULATE',
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ResultPage()));
-            },
-          )
+              buttonText: 'CALCULATE',
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ResultPage())))
         ],
       ),
     );
