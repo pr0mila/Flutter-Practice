@@ -24,3 +24,8 @@
 
 ## <a href= "https://github.com/pr0mila/Flutter-Practice/tree/quizzery">Quiz App</a>
 ![Screenshot from 2021-11-13 08-49-40](https://user-images.githubusercontent.com/39271244/143573425-b35d4655-0bf9-42a0-82f2-0de4f857036c.png)
+
+## <a href= "https://github.com/pr0mila/Flutter-Practice/tree/bmi_calculator">BMI Calculator</a>
+
+![Screenshot from 2021-11-27 02-31-18](https://user-images.githubusercontent.com/39271244/143627596-a388f880-f0a4-4c53-99a3-09d87c90730c.png)
+![Screenshot from 2021-11-27 02-31-26](https://user-images.githubusercontent.com/39271244/143627598-4585e9a8-6164-41a9-afcb-db7c9f58afda.png)
