@@ -1,85 +1,80 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+    home: MyApp(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.deepPurple,
-      ),
-      home: MyHomePage(title: 'My Practice'),
-    );
-  }
+  _State createState() => new _State();
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+class _State extends State<MyApp> {
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+  int counter = 0;
+  List<Widget> _list = [];
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  String _value = 'Nothing yet';
-
-  void _onpressed() {
-    setState(() {
-      _value = new DateTime.now().toString();
-    });
+  void initState() {
+    for (int i = 0; i < 5; i++) {
+      Widget child = _newItem(i);
+      _list.add(child);
+    }
   }
 
-  @override
-  Widget build(BuildContext context) {
+  void _onClicked() {
+    Widget child = _newItem(counter);
+    setState(() => _list.add(child));
+  }
 
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            new Text(_value),
-            new IconButton(
-              icon: new Icon(Icons.timer),
-              onPressed: _onpressed,
-              tooltip: 'Click me',
-
-            )],
-
+  Widget _newItem(int i)  {
+    Key key = Key('item_${i}');
+    Container child = Container(
+      key: key,
+      padding: EdgeInsets.all(10.0),
+      child: Chip(
+        label: Text('${i} Name here'),
+        deleteIconColor: Colors.red,
+        deleteButtonTooltipMessage: 'Delete',
+        onDeleted: () => _removeItem(key),
+        avatar: CircleAvatar(
+          backgroundColor: Colors.greenAccent,
+          child: Text(i.toString()),
         ),
       ),
-      // This trailing comma makes auto-formatting nicer for build methods.
+    );
+
+    counter++;
+    return child;
+  }
+
+  void _removeItem(Key key) {
+    for(int i = 0; i < _list.length; i++) {
+      Widget child = _list.elementAt(i);
+      if(child.key == key) {
+        setState(() => _list.removeAt(i));
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Chips and Keys'),
+      ),
+      floatingActionButton: FloatingActionButton(onPressed: _onClicked, child: const Icon(Icons.add),),
+
+      body: Container(
+          padding: const EdgeInsets.all(32.0),
+          child: Center(
+            child: Column(
+              children: _list,
+            ),
+          )
+      ),
     );
   }
 }
