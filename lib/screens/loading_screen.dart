@@ -1,9 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:http/http.dart' as http;
+import 'location_screen.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutterintermediate/services/location.dart';
+import 'package:flutterintermediate/services/networking.dart';
 
+
+const apikey = '71d04792a2f280885f8a59413d466035';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -12,44 +16,41 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen> {
 
+  double latitude = 0.0;
+   double longitude = 0.0;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getLocation();
-    getData();
+    getLocationData();
+   // getData();
   }
 
-  void getLocation() async
+  void getLocationData() async
   {
   Location location = Location();
    await location.getCurrentLocation();
-  print(location.longitude);
-   print(location.latitude);
+  longitude= location.longitude!;
+  latitude= location.latitude!;
+  NetworkHelper networkhelper = NetworkHelper('https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apikey');
+  var weatherdata = await networkhelper.getData();
 
-  }
+  Navigator.push(context, MaterialPageRoute(builder: (context){
+    return LocationScreen();
+  }));
 
-  void getData() async
-  {
-    http.Response response = await http.get(Uri.parse('https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=f1adb207ffdbecb6a4cda2b7caf98efd'));
-    print(response.statusCode);
-    if (response.statusCode == 200)
-      print(response.body);
-    else
-      print(response.statusCode);
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            //Get the current location
-           // getLocation();
-          },
-          //child: Text('Get Location'),
+        child: SpinKitPouringHourGlass(
+          color: Colors.white,
+          size: 100.0,
+
         ),
       ),
-    );
+      );
   }
 }
