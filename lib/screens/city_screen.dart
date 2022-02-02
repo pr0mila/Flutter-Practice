@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutterintermediate/utilities/constants.dart';
 
@@ -33,7 +35,15 @@ class _CityScreenState extends State<CityScreen> {
               ),
               Container(
                 padding: EdgeInsets.all(20.0),
-                child: null,
+                child: TextField(
+                    style: TextStyle(
+                      color: Colors.black
+                    ),
+                      decoration: kInputDecoration,
+                  onChanged: (value){
+
+                  },
+                ),
               ),
               FlatButton(
                 onPressed: () {},

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterintermediate/utilities/constants.dart';
 import 'package:flutterintermediate/services/weather.dart';
+import 'city_screen.dart';
 
 class LocationScreen extends StatefulWidget {
   LocationScreen({this.locationWeather});
@@ -17,7 +18,7 @@ class _LocationScreenState extends State<LocationScreen> {
   String weatherIcon = '';
   var condition = 0;
   String cityName = '';
-  String weathermessage ='';
+  String weathermessage = '';
 
   void initState() {
     super.initState();
@@ -25,13 +26,22 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   void updateUI(dynamic weatherData) {
-    temperature = weatherData['main']['temp'];
-    temp = temperature.toInt();
-    weathermessage = weather.getMessage(temp);
-    condition = weatherData['weather'][0]['id'];
-    cityName = weatherData['name'];
-    weatherIcon = weather.getWeatherIcon(condition);
-    print(temp);
+    setState(() {
+      if (weatherData == null) {
+        temperature = 0;
+        weatherIcon = 'Error';
+        weathermessage = 'unable to get weather data';
+        cityName = '';
+        return;
+      }
+      temperature = weatherData['main']['temp'];
+      temp = temperature.toInt();
+      weathermessage = weather.getMessage(temp);
+      condition = weatherData['weather'][0]['id'];
+      cityName = weatherData['name'];
+      weatherIcon = weather.getWeatherIcon(condition);
+      print(temp);
+    });
   }
 
   @override
@@ -56,14 +66,22 @@ class _LocationScreenState extends State<LocationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      var weatherData = await weather.getLocationWeather();
+                      updateUI(weatherData);
+                    },
                     child: Icon(
                       Icons.near_me,
                       size: 50.0,
                     ),
                   ),
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return CityScreen();
+                      }));
+                    },
                     child: Icon(
                       Icons.location_city,
                       size: 50.0,
