@@ -10,6 +10,8 @@ import 'package:flutterintermediate/services/networking.dart';
 const apikey = '71d04792a2f280885f8a59413d466035';
 
 class LoadingScreen extends StatefulWidget {
+
+
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
 }
@@ -33,11 +35,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
    await location.getCurrentLocation();
   longitude= location.longitude!;
   latitude= location.latitude!;
-  NetworkHelper networkhelper = NetworkHelper('https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apikey');
+  NetworkHelper networkhelper = NetworkHelper('https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=$longitude&appid=$apikey&units=metric');
   var weatherdata = await networkhelper.getData();
 
   Navigator.push(context, MaterialPageRoute(builder: (context){
-    return LocationScreen();
+    return LocationScreen(
+      locationWeather: weatherdata,
+    );
   }));
 
   }
