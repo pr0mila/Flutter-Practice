@@ -11,10 +11,11 @@ class WeatherModel {
   double latitude = 0.0;
   double longitude = 0.0;
 
-  void getCityWeather(String cityName) async
+  Future<dynamic> getCityWeather(String cityName) async
   {
     NetworkHelper networkHelper = NetworkHelper('$openMapURL?q=$cityName&appid=$apikey&units=metric');
-    var WeatherData = await networkHelper.getData();
+    var weatherData = await networkHelper.getData();
+    return weatherData;
   }
 
   Future<dynamic> getLocationWeather() async
@@ -22,8 +23,8 @@ class WeatherModel {
     Location location = Location();
     await location.getCurrentLocation();
     NetworkHelper networkhelper = NetworkHelper('$openMapURL?lat=${location.latitude}&lon=${location.longitude}&appid=$apikey&units=metric');
-    var weatherdata = await networkhelper.getData();
-    return weatherdata;
+    var weatherData = await networkhelper.getData();
+    return weatherData;
 
   }
 
