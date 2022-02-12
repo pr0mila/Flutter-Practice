@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutterintermediate/components/roundedbutton.dart';
 import 'package:flutterintermediate/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String id  = 'registration_screen';
@@ -9,6 +11,11 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+
+  String email = ' ';
+  String password = ' ';
+  final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,8 +37,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 48.0,
             ),
             TextField(
+              keyboardType: TextInputType.emailAddress,
+              textAlign: TextAlign.center,
               onChanged: (value) {
-                //Do something with the user input.
+                email = value;
               },
               decoration: kInputFieldDecoration.copyWith(hintText: 'Enter Your Email'),
             ),
@@ -39,8 +48,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 8.0,
             ),
             TextField(
-              onChanged: (value) {
-                //Do something with the user input.
+              obscureText: true,
+                textAlign: TextAlign.center,
+                onChanged: (value) {
+                password = value;
               },
               decoration: kInputFieldDecoration.copyWith(hintText: 'Enter Your Password')
             ),
@@ -48,6 +59,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 24.0,
             ),
             RoundedButton(title: 'Register', color:Colors.blueAccent, onPressed: () {
+              // print(email);
+              // print(password);
+              _auth.
             }),
           ],
         ),
