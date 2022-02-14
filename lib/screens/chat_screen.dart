@@ -71,6 +71,13 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            StreamBuilder<QuerySnapshot>(
+                stream: _firestore.collection('messages').snapshots(),
+                builder: (context,snapshot) {
+                         if(snapshot.hasData) {
+                           final messages = snapshot.data!.docs;
+                         }
+                }),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
@@ -100,6 +107,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ],
               ),
             ),
+            
           ],
         ),
       ),
