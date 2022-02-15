@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutterintermediate/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -12,6 +13,7 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
+
   late User loggedinUser;
   String messageText = '';
 
@@ -71,33 +73,7 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection('messages').snapshots(),
-                builder: (context, snapshot) {
-                  if(!snapshot.hasData)
-                    {
-                      return Center(
-                        child: CircularProgressIndicator(
-                          backgroundColor: Colors.lightBlueAccent,
-                        ),
-                      );
-                    }
-                      final messages = snapshot.data!.docs;
-                      List<MessageBubble>messageBubbles= [];
-                      for (var message in messages){
-                        final messageText = message['text'];
-                        final messageSender = message['sender'];
-                        final messageBubble = MessageBubble(text: messageText, sender: messageSender);
-                        messageBubbles.add(messageBubble);
-                      }
-                      return Expanded(
-                        child: ListView(
-                          padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 20.0),
-                          children:messageBubbles,
-                        ),
-                      );
-
-                }),
+            MessagesStream(),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
@@ -134,6 +110,42 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 }
 
+class MessagesStream extends StatelessWidget {
+  final _firestore = FirebaseFirestore.instance;
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+        stream: _firestore.collection('messages').snapshots(),
+        builder: (context, snapshot) {
+          if(!snapshot.hasData)
+          {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.lightBlueAccent,
+              ),
+            );
+          }
+          final messages = snapshot.data!.docs;
+          List<MessageBubble>messageBubbles= [];
+          for (var message in messages){
+            final messageText = message['text'];
+            final messageSender = message['sender'];
+            final messageBubble = MessageBubble(text: messageText, sender: messageSender);
+            messageBubbles.add(messageBubble);
+          }
+          return Expanded(
+            child: ListView(
+              padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 20.0),
+              children:messageBubbles,
+            ),
+          );
+
+        });
+  }
+}
+
+
 class MessageBubble extends StatelessWidget {
    MessageBubble({required this.text,required this.sender});
    final String text;
@@ -144,17 +156,23 @@ class MessageBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 20.0),
-      child: Material(
-        elevation: 5.0,
-        borderRadius: BorderRadius.circular(30.0),
-        color: Colors.lightBlueAccent,
-        child: Text(
-          '$text from $sender',
-          style: TextStyle(
-            fontSize: 15.0,
-            color: Colors.white
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(sender,style: TextStyle(fontSize: 12.0,color:Colors.black54),),
+          Material(
+            elevation: 5.0,
+            borderRadius: BorderRadius.circular(30.0),
+            color: Colors.lightBlueAccent,
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 15.0,
+                color: Colors.white
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
