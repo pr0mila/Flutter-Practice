@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:todoey/widgets/task_list.dart';
+import 'package:todoey/widgets/task_tile.dart';
+
+import 'add_task.dart';
 
 class TaskScreen extends StatelessWidget {
-  const TaskScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -9,17 +13,20 @@ class TaskScreen extends StatelessWidget {
       backgroundColor: Colors.lightBlueAccent,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.lightBlueAccent,
-        child: Icon(Icons.add),
-        onPressed: () {  },
+        child: const Icon(Icons.add),
+        onPressed: () {  
+          showModalBottomSheet(context: context, builder:(context) => AddTask());
+        },
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             padding:
                 EdgeInsets.only(top: 60.0, left: 30.0, bottom: 30.0, right: 30.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+              children: const <Widget>[
                 CircleAvatar(
                   child: Icon(Icons.list,color: Colors.lightBlueAccent,),
                   backgroundColor: Colors.white,
@@ -46,11 +53,13 @@ class TaskScreen extends StatelessWidget {
           ),
           Expanded(
             child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
               height: 300.0,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0))
               ),
+              child: TaskList()
             ),
           )
         ],
@@ -58,3 +67,7 @@ class TaskScreen extends StatelessWidget {
     );
   }
 }
+
+
+
+
