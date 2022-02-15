@@ -4,7 +4,7 @@ import 'package:flutterintermediate/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatScreen extends StatefulWidget {
-  static const String id  = 'chat_screen';
+  static const String id = 'chat_screen';
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -22,14 +22,13 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void getCurrentUser() async {
-    try{
+    try {
       final user = await _auth.currentUser!;
-      if(user != null){
+      if (user != null) {
         loggedinUser = user;
       }
       print(loggedinUser);
-    }
-    catch(e){
+    } catch (e) {
       print(e);
     }
   }
@@ -41,12 +40,13 @@ class _ChatScreenState extends State<ChatScreen> {
   //   }
   // }
 
-  void messagesStream() async{
+  void messagesStream() async {
     await for (var snapshot in _firestore.collection('messages').snapshots()) {
-      for (var message in snapshot.docs ){
-            print(message.data());
-           }
-    };
+      for (var message in snapshot.docs) {
+        print(message.data());
+      }
+    }
+    ;
   }
 
   @override
@@ -60,7 +60,7 @@ class _ChatScreenState extends State<ChatScreen> {
               onPressed: () {
                 // _auth.signOut();
                 // Navigator.pop(context);
-                 messagesStream();
+                messagesStream();
               }),
         ],
         title: Text('⚡️Chat'),
@@ -73,10 +73,30 @@ class _ChatScreenState extends State<ChatScreen> {
           children: <Widget>[
             StreamBuilder<QuerySnapshot>(
                 stream: _firestore.collection('messages').snapshots(),
-                builder: (context,snapshot) {
-                         if(snapshot.hasData) {
-                           final messages = snapshot.data!.docs;
-                         }
+                builder: (context, snapshot) {
+                  if(!snapshot.hasData)
+                    {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          backgroundColor: Colors.lightBlueAccent,
+                        ),
+                      );
+                    }
+                      final messages = snapshot.data!.docs;
+                      List<MessageBubble>messageBubbles= [];
+                      for (var message in messages){
+                        final messageText = message['text'];
+                        final messageSender = message['sender'];
+                        final messageBubble = MessageBubble(text: messageText, sender: messageSender);
+                        messageBubbles.add(messageBubble);
+                      }
+                      return Expanded(
+                        child: ListView(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 20.0),
+                          children:messageBubbles,
+                        ),
+                      );
+
                 }),
             Container(
               decoration: kMessageContainerDecoration,
@@ -95,8 +115,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     onPressed: () {
                       //Implement send functionality.
                       _firestore.collection('messages').add({
-                        'text' : messageText,
-                        'sender' : loggedinUser.email,
+                        'text': messageText,
+                        'sender': loggedinUser.email,
                       });
                     },
                     child: Text(
@@ -107,8 +127,33 @@ class _ChatScreenState extends State<ChatScreen> {
                 ],
               ),
             ),
-            
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class MessageBubble extends StatelessWidget {
+   MessageBubble({required this.text,required this.sender});
+   final String text;
+   final String sender;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 20.0),
+      child: Material(
+        elevation: 5.0,
+        borderRadius: BorderRadius.circular(30.0),
+        color: Colors.lightBlueAccent,
+        child: Text(
+          '$text from $sender',
+          style: TextStyle(
+            fontSize: 15.0,
+            color: Colors.white
+          ),
         ),
       ),
     );
