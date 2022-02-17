@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:todoey/widgets/task_list.dart';
-import 'package:todoey/widgets/task_tile.dart';
+
 
 import 'add_task.dart';
 
@@ -53,7 +53,7 @@ class TaskScreen extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
               height: 300.0,
               decoration: const BoxDecoration(
                   color: Colors.white,
